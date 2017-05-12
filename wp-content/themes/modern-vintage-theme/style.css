@@ -2995,7 +2995,14 @@ a.rsswidget img {
 .ecwid-productBrowser-categoryPath-categoryLink.ecwid-productBrowser-categoryPath-storeLink{
 	display: none!important;
 }
-.gwt-HTML{
+.ecwid-productBrowser-details-descr .gwt-HTML,
+.ecwid-Invoice-block .gwt-HTML,
+.ecwid-productBrowser-sku,
+.ecwid-Invoice-qtyLabel,
+.ecwid-Invoice-Header-timestamp,
+.ecwid-Invoice-Header-OrderStatus,
+.ecwid-Invoice-Header-OrderNumber,
+.ecwid-Invoice-footer-orderConfirmation-text{
 	color: white!important;
 }
 
@@ -3009,6 +3016,11 @@ a.rsswidget img {
 
 .ecwid-productBrowser-cart-emptyCartPanel .ecwid-form{
 	background: transparent!important;
+}
+.ecwid-Invoice-cell:not(.ecwid-Invoice-shippingDetails-cell),
+.ecwid-productBrowser-nav,
+.ecwid-productBrowser-backgroundedPanel{
+	background-color:#8e4647!important;
 }
 /* Social Icon Modern-Vintage                 25-5
 ================================================== */
