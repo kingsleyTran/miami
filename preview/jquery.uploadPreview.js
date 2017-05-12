@@ -8,7 +8,7 @@
         preview_box: ".image-preview",
         label_field: ".image-label",
         label_default: "Choose File",
-        label_selected: "Change File",
+        label_selected: "Chọn lại",
         no_label: false,
         success_callback : null,
       }, options);
