@@ -7,7 +7,7 @@
         input_field: ".image-input",
         preview_box: ".image-preview",
         label_field: ".image-label",
-        label_default: "Choose File",
+        label_default: "Chọn ảnh sản phẩm",
         label_selected: "Chọn lại",
         no_label: false,
         success_callback : null,

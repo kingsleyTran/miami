@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 	<script src="jquery.ui.rotatable.js"></script>
 	<link rel="stylesheet" href="main.css">
-    <script type="text/javascript" src="./jquery.uploadPreview.min.js"></script>
+    <script type="text/javascript" src="./jquery.uploadPreview.js"></script>
     <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"/>
 
     <script type="text/javascript">
@@ -38,11 +38,67 @@
                 $('#image-preview').on('dblclick', function(e){
                 	$('#image-upload').trigger('click');
                 })
+                // $('#image-link').on('change', function(e){
+                //     $('#image-preview').css('background-image', 'url('+e.target.value+')');
+                //     $('#image-preview').css("background-size", "center");
+                // })
+                // $('#image-link').keypress(function(e) {
+                //     if(e.which == 13) {
+                //         $('#image-preview').css('background-image', 'url('+e.target.value+')');
+                //         $('#image-preview').css("background-size", "center");
+                //     }
+                // })
+                $('#left-arr').on('click', function(){
+                    console.log('x');
+                    var leftPos = $('#gallery').scrollLeft();
+                        $("#gallery").animate({scrollLeft: leftPos - 300}, 800);
+                })
+                $('#right-arr').on('click', function(){
+                    var rightPos = $('#gallery').scrollLeft();
+                        $("#gallery").animate({scrollLeft: rightPos + 300}, 800);
+                })
+                $(document).on('click','.close_box',function(){
+                    $(this).parent().fadeTo(300,0,function(){
+                          $(this).remove();
+                    });
+                });
+                $('#add-new').on('click', function(){
+                    var randomId = parseInt(Math.random()*100),
+                        htmlString1 = $.parseHTML('<div class="image-preview" id="image-preview'+ randomId +'"><div class="close_box">X</div></div>'),
+                        htmlString2 = $.parseHTML('<input type="file" class="inputfile" id="image-upload'+ randomId +'"></div>'),
+                        room = $('#room');
+                        room.append(htmlString1),
+                        room.append(htmlString2),
+                        newNode = $(htmlString1),
+                        inputNode = $(htmlString2);
+                        newNode.ready(function(){
+                            $.uploadPreview({
+                                input_field: '#image-upload'+randomId,
+                                preview_box: '#image-preview'+randomId,
+                                label_field: "#image-label"
+                            });
+                            newNode.on('dblclick', function(e){
+                                var targetId = '#image-upload' + $(e.target).attr('id').split('image-preview')[1];
+                                $(targetId).trigger('click');
+                            });
+                            newNode.draggable();
+                            newNode.resizable({
+                                alsoResizeReverse: ".myframe"
+                            });
+                            newNode.rotatable();
+                            $(document).on('click','.close_box',function(){
+                                $(this).parent().fadeTo(300,0,function(){
+                                    $(this).remove();
+                                });
+                            });
+                        })
+                })
 			})
 		});
     </script>
 </head>
 <body>
+<div id="left-arr" class="arrow">Left</div>
 <div id="gallery">
     <label for="your-room">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
@@ -63,6 +119,7 @@
     <img src="./img/room-10.jpg"/>
     <img src="./img/room-11.jpg"/>
 </div>
+<div id="right-arr" class="arrow">Right</div>
 <span class="tip">Mẹo: Bạn có thể double click vào sản phẩm để chọn lại sản phẩm khác</span>
 <div id="container">
     <label for="image-upload" id="image-label">
@@ -72,8 +129,13 @@
         <span>Chọn hình sản phẩm..</span>
     </label>
     <input type="file" class="inputfile" name="image" id="image-upload" />
+    <!-- <input type="text" placeholder="Or paste URL here"/ id="image-link"> -->
+    <label id="add-new">
+        Thêm sản phẩm mới
+    </label>
     <div id="room">
-        <div id="image-preview">
+        <div id="image-preview" class="image-preview">
+            <div class="close_box">X</div>
         </div>
     </div>
 </div>
