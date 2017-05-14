@@ -1,0 +1,115 @@
+  #image-preview {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            background-color: #ffffff;
+            color: #ecf0f1;
+            box-shadow: rgb(136, 136, 136) -5px 5px 5px;
+            background-image: url('img/empty.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        #image-preview input{
+            line-height: 200px;
+            font-size: 200px;
+            position: absolute;
+            opacity: 0;
+            z-index: 10;
+        }
+        #image-preview label {
+            position: absolute;
+            z-index: 5;
+            opacity: 0.8;
+            cursor: pointer;
+            background-color: #bdc3c7;
+            width: 200px;
+            height: 50px;
+            font-size: 20px;
+            line-height: 50px;
+            text-transform: uppercase;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            text-align: center;
+        }
+        #gallery{
+            height: 200px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        #gallery img{
+            height: 200px;
+            cursor: pointer;
+        }
+        #gallery img:hover{
+            border-radius: 30px;
+        }
+        .inputfile {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+        #gallery > label{
+            color: #f1e5e6;
+            background-color: #d3394c;
+            padding: 15px;
+            margin-right: 10px;
+            position: absolute;
+            cursor: pointer;
+        }
+
+        #image-label {
+            color: #f1e5e6;
+            background-color: #d3394c;
+            padding: 18px;
+            position: relative;
+            margin-top: 10px;
+            margin-bottom: -5px;
+            top: 80px;
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        label > svg {
+            width: 1em;
+            height: 1em;
+            vertical-align: middle;
+            fill: currentColor;
+            margin-top: -0.25em;
+            margin-right: 0.25em;
+        }
+        #room{
+            height: 700px;
+            margin-top: 30px;
+            background-image: url('./img/room-01.jpg');
+            background-repeat: no-repeat;
+            background-size: contain!important;
+        }
+        .tip{
+            text-align: center;
+            color: #616E14;
+            border: solid 1px #BFD62F;
+            background-color: #DAE691;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            padding: 14px 20px;
+            top: 25px;
+            position: relative;
+        }
+.ui-rotatable-handle {
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
+    background-image: url('img/rotate.png');
+    background-size: 100%;
+    left: 2px;
+    bottom: 2px;
+    margin: auto;
+}
