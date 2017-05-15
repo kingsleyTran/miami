@@ -5,11 +5,14 @@
     <!-- prerequisites -->
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 	<script src="jquery.ui.rotatable.js"></script>
+	<script src="okshadow.js"></script>
 	<link rel="stylesheet" href="main.css">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <script type="text/javascript" src="./jquery.uploadPreview.js"></script>
     <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"/>
 
     <script type="text/javascript">
+        var currentTarget = null;
 		$(document).ready(function() {
 			$.uploadPreview({
 				input_field: "#image-upload",
@@ -37,7 +40,19 @@
 				});
                 $('#image-preview').on('dblclick', function(e){
                 	$('#image-upload').trigger('click');
-                })
+                });
+                $('#image-preview').on('click', function(e){
+                	if(currentTarget) {
+                		currentTarget.data('okshadow').pause();
+                    }
+                    $(e.target).okshadow();
+                    currentTarget = $(e.target);
+                });
+                $(document).on('click', function(e){
+                	if (currentTarget && e.target != currentTarget[0]) {
+                		currentTarget.data('okshadow').pause();
+                    }
+                });
                 // $('#image-link').on('change', function(e){
                 //     $('#image-preview').css('background-image', 'url('+e.target.value+')');
                 //     $('#image-preview').css("background-size", "center");
@@ -52,19 +67,21 @@
                     console.log('x');
                     var leftPos = $('#gallery').scrollLeft();
                         $("#gallery").animate({scrollLeft: leftPos - 300}, 800);
-                })
+                });
                 $('#right-arr').on('click', function(){
                     var rightPos = $('#gallery').scrollLeft();
                         $("#gallery").animate({scrollLeft: rightPos + 300}, 800);
-                })
-                $(document).on('click','.close_box',function(){
-                    $(this).parent().fadeTo(300,0,function(){
-                          $(this).remove();
-                    });
                 });
+                $(document).on('click','.close_box',function(){
+					if (confirm('Bạn thực sự muốn xoá ảnh này?')) {
+						$(this).parent().fadeTo(300,0,function(){
+							$(this).remove();
+						});
+					}
+				});
                 $('#add-new').on('click', function(){
                     var randomId = parseInt(Math.random()*100),
-                        htmlString1 = $.parseHTML('<div class="image-preview" id="image-preview'+ randomId +'"><div class="close_box">X</div></div>'),
+                        htmlString1 = $.parseHTML('<div class="image-preview" id="image-preview'+ randomId +'"><div class="close_box"><i class="fa fa-times-circle" aria-hidden="true"></i></div></div>'),
                         htmlString2 = $.parseHTML('<input type="file" class="inputfile" id="image-upload'+ randomId +'"></div>'),
                         room = $('#room');
                         room.append(htmlString1),
@@ -81,16 +98,25 @@
                                 var targetId = '#image-upload' + $(e.target).attr('id').split('image-preview')[1];
                                 $(targetId).trigger('click');
                             });
+							newNode.on('click', function(e){
+								if(currentTarget) {
+									currentTarget.data('okshadow').pause();
+								}
+								$(e.target).okshadow();
+								currentTarget = $(e.target);
+							});
                             newNode.draggable();
                             newNode.resizable({
                                 alsoResizeReverse: ".myframe"
                             });
                             newNode.rotatable();
                             $(document).on('click','.close_box',function(){
-                                $(this).parent().fadeTo(300,0,function(){
-                                    $(this).remove();
-                                });
-                            });
+								if (confirm('Bạn thực sự muốn xoá ảnh này?')) {
+									$(this).parent().fadeTo(300,0,function(){
+										$(this).remove();
+									});
+								}
+							});
                         })
                 })
 			})
@@ -98,7 +124,7 @@
     </script>
 </head>
 <body>
-<div id="left-arr" class="arrow">Left</div>
+<div id="left-arr" class="arrow"><img src="./img/left-arr.png" /></div>
 <div id="gallery">
     <label for="your-room">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
@@ -119,8 +145,9 @@
     <img src="./img/room-10.jpg"/>
     <img src="./img/room-11.jpg"/>
 </div>
-<div id="right-arr" class="arrow">Right</div>
+<div id="right-arr" class="arrow"><img src="./img/right-arr.png" /></div>
 <span class="tip">Mẹo: Bạn có thể double click vào sản phẩm để chọn lại sản phẩm khác</span>
+<span class="tip">Mẹo: Click vào sản phẩm để thay đổi vị trí bóng</span>
 <div id="container">
     <label for="image-upload" id="image-label">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
@@ -135,7 +162,7 @@
     </label>
     <div id="room">
         <div id="image-preview" class="image-preview">
-            <div class="close_box">X</div>
+            <div class="close_box"><i class="fa fa-times-circle" aria-hidden="true"></i></div>
         </div>
     </div>
 </div>
